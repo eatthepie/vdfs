@@ -39,7 +39,7 @@ def load_proof_data(file_path: str) -> dict:
 def load_contract_abi(file_path: str) -> list:
     """Load contract ABI from a JSON file."""
     with open(file_path, 'r') as f:
-        return json.load(f)['abi']
+        return json.load(f)
 
 def connect_to_ethereum(node_url: str) -> Web3:
     """Connect to an Ethereum node."""

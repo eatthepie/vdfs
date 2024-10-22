@@ -1,3 +1,5 @@
+# This file contains code adapted from heun630/VDF-Prover-Optimization
+# Source: https://github.com/heun630/VDF-Prover-Optimization/blob/main/python/pietrzak_vdf.py
 
 import logging
 import time
