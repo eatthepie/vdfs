@@ -2,80 +2,75 @@
 
 # Eat The Pie VDF Prover
 
-This repository contains the VDF prover used in [eatthepie.eth](https://www.eatthepie.xyz), the world lottery on Ethereum. 🎲
+This repository contains the VDF (Verifiable Delay Function) prover used in [Eat The Pie](https://www.eatthepie.xyz), the world lottery on Ethereum. The VDF system ensures truly random and fair number generation for our lottery game. 🎲
 
-Verifiable Delay Functions (VDFs) are cryptographic primitives that require a specified amount of sequential computation time to evaluate, even with parallel computing resources. In the context of eatthepie.eth lottery, this time-locked property ensures truly random number generation that cannot be manipulated or predicted in advance, making it a cornerstone of our fair lottery system.
+## What is a VDF?
 
-## 📂 Project Structure
+Verifiable Delay Functions (VDFs) are cryptographic primitives that require a specified amount of sequential computation time to evaluate, even with parallel computing resources. In Eat The Pie, this time-locked property ensures that lottery numbers cannot be manipulated or predicted in advance, guaranteeing a fair game for all players.
 
-```
-vdfs/
-├── helpers/
-│   └── print_bignum_solidity.py
-├── onchain-verification/
-│   └── verify.py
-├── python/
-│   ├── prover.py
-│   └── verifier.py
-└── .gitignore
-```
+## Using the VDF Prover with Eat The Pie 🎯
 
-## Components 🛠️
+### Prerequisites
 
-### Helpers
+- Python 3.7+
+- [Eat The Pie CLI app](https://github.com/eatthepie/cli) (`npm install -g eatthepie`)
 
-- `print_bignum_solidity.py`: Utility for handling large numbers compatible with Solidity smart contracts
+### Step-by-Step Guide
 
-### Onchain Verification
+1. **Get the RANDAO Value**
 
-- `verify.py`: Implementation of the VDF verification logic for Ethereum smart contracts
+   - Option A: Visit [eatthepie.xyz](https://www.eatthepie.xyz) and find the RANDAO value for a game
+   - Option B: Use the CLI app:
+     ```bash
+     eatthepie game-info [game-number]
+     ```
 
-### Python Implementation
+2. **Generate the VDF Proof**
 
-- `prover.py`: Core VDF proving system implementation
-- `verifier.py`: VDF verification system implementation
+   ```bash
+   cd python
+   python prover.py [RANDAO_VALUE]
+   ```
 
-## Setup
+   This will generate two files:
 
-1. Ensure you have Python 3.7+ installed
-2. Navigate to the `python` directory
-3. Install the required dependencies
+   - `proof.json` - Used for submitting to the game
+   - `proof.pickle` - Used for local verification
 
-### Running the Prover 🔄
+3. **Submit/Verify the Proof**
+   - For active games, submit the proof with the CLI app:
+     ```bash
+     eatthepie submit-vdf-proof
+     ```
+   - For past games, verify a proof with the CLI app:
+     ```bash
+     eatthepie verify-vdf
+     ```
 
-```bash
-cd python
-python prover.py [block.prevrandao]
-```
+### Local Verification (Optional)
 
-This takes the `block.prevrandao` value as the input of the VDF function. ⏳ Computation may take a bit of time. Once done, it'll save a `proof.json` and `proof.pickle` file. You can use this for verification with the `verifier.py` file or onchain (download the eatthepie.eth CLI app to do this). To get the values of `block.prevrandao` from the eatthepie.eth lottery game, you can use the CLI app or go to the website.
-
-### Verifying Results ✅
+To verify your proof locally before submission:
 
 ```bash
 python verifier.py
 ```
 
-Make sure your `proof.pickle` file is in the folder - this will verify that output.
+Make sure your `proof.pickle` file is in the same directory.
 
-## On-chain Verification 🔗
+## Project Structure 📂
 
-To verify a VDF proof on-chain, you have two options:
-
-1. Navigate to `/onchain-verification` and use the `verify.py` file. Make sure to fill out these required fields at the top:
-
-```python
-node_url = ""
-contract_address = ""
-abi_file = ""
-proof_file = ""
+```
+vdfs/
+├── python/
+│   ├── prover.py
+│   └── verifier.py
 ```
 
-Then install the dependencies.
+## Technical Details
 
-2. Use the CLI app to verify proofs:
-   - Download the CLI app
-   - Run `eatthepie submit-proof ...` to verify proofs of ongoing games or validate proofs of past games
+This implementation uses the Pietrzak VDF scheme. For more information:
+
+- [Simple Verifiable Delay Functions](https://eprint.iacr.org/2018/627.pdf) by Pietrzak
 
 ## License 📜
 
