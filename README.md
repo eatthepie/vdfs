@@ -75,9 +75,3 @@ This implementation uses the Pietrzak VDF scheme. For more information:
 ## License 📜
 
 This project is licensed under the MIT License.
-
-## Acknowledgements 🙏
-
-This implementation is based on the Pietrzak VDF scheme. For more information on VDFs, check out:
-
-- [Simple Verifiable Delay Functions](https://eprint.iacr.org/2018/627.pdf) by Pietrzak
