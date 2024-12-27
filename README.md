@@ -1,3 +1,7 @@
+# ⚠️ WARNING: Deprecated
+
+VDFs were used in V1 of Eat The Pie, which is now deprecated.
+
 ![Eat The Pie](https://github.com/eatthepie/docs/blob/main/static/img/header.png)
 
 # Eat The Pie VDF Prover
